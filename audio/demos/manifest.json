@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "brand": "Natalia",
+  "mode": "agent-turn-clips",
+  "source": "natalia-clips.json",
+  "notes": "Las intervenciones del cliente son texto; solo las respuestas de Natalia tienen audio."
+}

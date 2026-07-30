@@ -1,0 +1,17 @@
+{
+  "name": "Natalia",
+  "short_name": "Natalia",
+  "description": "Agentes de voz que conectan cada llamada con la operación de tu negocio.",
+  "lang": "es-MX",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f9f8",
+  "theme_color": "#f7f9f8",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

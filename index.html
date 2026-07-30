@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f9f8">
+  <title>Natalia — Agentes de voz para la operación de tu negocio</title>
+  <meta name="description" content="Natalia atiende llamadas, consulta la operación de tu negocio y ejecuta acciones en tus sistemas, con atención simultánea y transferencia humana.">
+  <link rel="canonical" href="https://natem.ai/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:site_name" content="Natalia">
+  <meta property="og:title" content="Atención telefónica para negocios que no pueden detenerse">
+  <meta property="og:description" content="Agentes de voz que conversan, consultan tu operación y ejecutan acciones directamente en tus sistemas.">
+  <meta property="og:url" content="https://natem.ai/">
+  <meta property="og:image" content="https://natem.ai/og.png">
+  <meta property="og:image:alt" content="Natalia conecta cada llamada con la operación de restaurantes, clínicas, call centers y talleres.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Atención telefónica para negocios que no pueden detenerse">
+  <meta name="twitter:description" content="Agentes de voz que conversan y ejecutan acciones en la operación de tu negocio.">
+  <meta name="twitter:image" content="https://natem.ai/og.png">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="site.webmanifest">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Natalia",
+      "url": "https://natem.ai/",
+      "logo": "https://natem.ai/favicon.svg",
+      "email": "figueroaedu117@gmail.com",
+      "description": "Agentes de voz para atención telefónica e integración con la operación de negocios."
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:ital,opsz,wght@0,12..96,400;0,12..96,500;0,12..96,600;0,12..96,700;1,12..96,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=20260728-3">
+  <link rel="stylesheet" href="css/call-carousel.css?v=20260726-9">
+  <link rel="stylesheet" href="css/operations-verticals.css?v=20260726-2">
+</head>
+<body>
+  <a class="skip-link" href="#main">Ir al contenido</a>
+
+  <nav class="nav" aria-label="Navegación principal">
+    <div class="nav-inner">
+      <a href="#hero" class="logo" aria-label="Natalia, inicio"><span class="logo-word">Natal<span class="logo-letter logo-letter-i">i</span><span class="logo-letter logo-letter-a">a</span></span></a>
+      <div class="nav-links">
+        <a href="#how">Cómo funciona</a>
+        <a href="#live-call">Demos de llamada</a>
+        <a href="#capabilities">Capacidades</a>
+        <a href="#faq">Preguntas frecuentes</a>
+      </div>
+      <a href="#contact" class="btn btn-primary btn-small">Agenda una demo</a>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section class="hero" id="hero">
+      <div class="hero-ambient" aria-hidden="true">
+        <span class="ambient-orb ambient-orb-one"></span>
+        <span class="ambient-orb ambient-orb-two"></span>
+        <span class="ambient-grid"></span>
+      </div>
+      <div class="hero-inner">
+        <h1>Atención telefónica para negocios <em>que no pueden detenerse</em></h1>
+        <p class="hero-subtitle">
+          Natalia conversa con tus clientes, consulta tu operación y realiza acciones
+          directamente en tu sistema. Sin líneas ocupadas y con transferencia humana cuando hace falta.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Agenda una demo <span aria-hidden="true">↗</span></a>
+          <a href="#live-call" class="btn btn-secondary">Escuchar una llamada <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="hero-proof" aria-label="Características principales">
+          <span><i aria-hidden="true"></i> Español natural</span>
+          <span><i aria-hidden="true"></i> Integración con tu operación</span>
+          <span><i aria-hidden="true"></i> Atención simultánea</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="live-call" id="live-call">
+      <div class="section-inner call-inner">
+        <div class="call-heading reveal">
+          <h2>Escucha una atención<br><em>rápida y bien resuelta.</em></h2>
+          <p>Elige una industria para escuchar cómo Natalia conversa, consulta información y completa el siguiente paso.</p>
+        </div>
+
+        <div class="call-showcase reveal" id="call-stage">
+          <div class="call-switcher" id="call-switcher" role="tablist" aria-label="Tipos de llamadas">
+            <button id="call-tab-0" type="button" role="tab" data-call-index="0" aria-selected="true" aria-controls="call-panel-0">Restaurante</button>
+            <button id="call-tab-1" type="button" role="tab" data-call-index="1" aria-selected="false" aria-controls="call-panel-1" tabindex="-1">Clínica</button>
+            <button id="call-tab-2" type="button" role="tab" data-call-index="2" aria-selected="false" aria-controls="call-panel-2" tabindex="-1">Call center</button>
+            <button id="call-tab-3" type="button" role="tab" data-call-index="3" aria-selected="false" aria-controls="call-panel-3" tabindex="-1">Taller</button>
+          </div>
+
+          <div class="call-carousel-shell">
+            <button class="carousel-arrow carousel-arrow-prev" id="call-prev" type="button" aria-label="Ver llamada anterior">←</button>
+            <div class="call-carousel" id="call-carousel" aria-label="Conversaciones de demostración por negocio">
+              <div class="call-track" id="call-track"></div>
+            </div>
+            <button class="carousel-arrow carousel-arrow-next" id="call-next" type="button" aria-label="Ver llamada siguiente">→</button>
+          </div>
+
+          <p class="carousel-hint"><span aria-hidden="true">↔</span> Desliza o usa las flechas para explorar</p>
+          <div class="call-industry-strip" aria-label="Otras industrias compatibles">
+            <span class="call-industry-label">También trabajamos con <i aria-hidden="true">→</i></span>
+            <div class="call-industry-tags">
+              <span>Call centers</span>
+              <span>Hoteles</span>
+              <span>Oficinas</span>
+              <span>Barberías</span>
+              <a href="#contact">¿Tu industria? <b aria-hidden="true">→</b></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proof-quote section-light" aria-labelledby="proof-quote-title">
+      <div class="section-inner proof-quote-inner reveal">
+        <blockquote id="proof-quote-title">
+          “Cuando se juntan los pedidos, ya no se nos van las llamadas.
+          <em>Natalia contesta</em> y nos deja el pedido listo.”
+        </blockquote>
+        <p class="proof-quote-source">Mario Ávila <span>—</span> Dueño de restaurante en Pachuca, Hidalgo</p>
+      </div>
+    </section>
+
+    <section class="capabilities section-light" id="capabilities">
+      <div class="section-inner">
+        <div class="capabilities-intro reveal">
+          <div class="heading-copy">
+            <h2>Más que contestar:<br><em>ejecuta el siguiente paso.</em></h2>
+            <p class="heading-subtitle">
+              Empezamos con restaurantes porque en hora pico cada llamada cuenta.
+              La solución combina conversación, reglas de negocio e integración con sistemas reales.
+            </p>
+          </div>
+        </div>
+
+        <div class="operations-layout">
+          <article class="feature-panel reveal">
+            <div class="feature-panel-head">
+              <span class="sector-badge">RESTAURANTES · DISPONIBLE</span>
+              <span class="panel-index">01 / 01</span>
+            </div>
+            <h3>Control en cada decisión importante.</h3>
+            <p class="feature-lead">
+              El agente conversa con naturalidad; el sistema conserva la autoridad sobre precios,
+              existencias, confirmaciones y escritura de pedidos.
+            </p>
+            <ul class="feature-list">
+              <li>
+                <span class="feature-check">✓</span>
+                <div><strong>Pedidos estructurados</strong><small>Agrega, elimina y corrige productos durante la misma llamada.</small></div>
+              </li>
+              <li>
+                <span class="feature-check">✓</span>
+                <div><strong>Confirmación de datos críticos</strong><small>Dirección, modalidad, teléfono, pago y total antes de registrar.</small></div>
+              </li>
+              <li>
+                <span class="feature-check">✓</span>
+                <div><strong>Escalamiento responsable</strong><small>Transfiere a una persona ante ambigüedad, solicitud o falla real.</small></div>
+              </li>
+              <li>
+                <span class="feature-check">✓</span>
+                <div><strong>Integración adaptable</strong><small>Puntos de venta, Dolibarr y herramientas propias mediante conectores controlados.</small></div>
+              </li>
+            </ul>
+          </article>
+
+          <article class="dashboard-card reveal" aria-label="Ejemplo de pedido enviado a un punto de venta externo">
+            <div class="mobile-integration-summary">
+              <span class="mobile-integration-label">Integración con tu sistema</span>
+              <ol>
+                <li><b>1</b><span><strong>Pedido recibido</strong><small>Productos y cambios estructurados</small></span></li>
+                <li><b>2</b><span><strong>Datos confirmados</strong><small>Cliente, modalidad, teléfono y total</small></span></li>
+                <li><b>3</b><span><strong>Enviado al sistema</strong><small>La operación recibe información lista para actuar</small></span></li>
+              </ol>
+              <button class="integration-expand" type="button" aria-expanded="false">Ver integración completa</button>
+            </div>
+            <div class="desktop-pos-detail">
+            <div class="pos-window-bar">
+              <div class="window-controls" aria-hidden="true"><span>LP</span></div>
+              <span class="pos-address">Lobos Pizza — Punto de venta v4.8</span>
+              <span class="external-badge"><i></i> Conectado a Natalia</span>
+            </div>
+            <div class="classic-menu-bar">
+              <div><span>Archivo</span><span>Ventas</span><span>Catálogo</span><span>Inventario</span><span>Reportes</span><span>Ayuda</span></div>
+              <strong>25/07/2026 · 20:34</strong>
+            </div>
+            <div class="pos-app">
+              <aside class="pos-sidebar" aria-label="Navegación del punto de venta de ejemplo">
+                <div class="pos-brand">
+                  <span>LP</span>
+                  <div><strong>Lobos Pizza</strong><small>Punto de venta</small></div>
+                </div>
+                <nav class="pos-nav">
+                  <span class="active"><b>▦</b> Pedidos <i>6</i></span>
+                  <span><b>□</b> Caja</span>
+                  <span><b>◇</b> Menú</span>
+                  <span><b>◫</b> Inventario</span>
+                </nav>
+                <div class="pos-connection"><i></i><span>Sincronizado<br><small>hace 2 segundos</small></span></div>
+              </aside>
+              <div class="pos-main">
+                <div class="dashboard-topbar">
+                  <div>
+                    <span class="meta-label">OPERACIÓN · TURNO NOCTURNO</span>
+                    <strong>Módulo de pedidos</strong>
+                  </div>
+                  <div class="pos-user"><span>EM</span><div><strong>Eduardo M.</strong><small>Administrador</small></div></div>
+                </div>
+                <div class="dashboard-summary">
+                  <div class="metric-teal"><span>Ventas de hoy</span><strong>$12,840</strong><small>↑ 18% vs. ayer</small></div>
+                  <div class="metric-amber"><span>En preparación</span><strong>06</strong><small>Promedio: 14 min</small></div>
+                  <div class="metric-violet"><span>Atendidos por Natalia</span><strong>47</strong><small>0 llamadas perdidas</small></div>
+                </div>
+                <div class="dashboard-table">
+                  <div class="table-title">
+                    <div><strong>Órdenes recientes</strong><span>Entrando en tiempo real desde teléfono, mostrador y web</span></div>
+                    <button type="button" tabindex="-1">+ Nuevo pedido</button>
+                  </div>
+                  <div class="table-head"><span>Orden</span><span>Cliente y detalle</span><span>Modalidad</span><span>Total</span><span>Estado</span></div>
+                  <div id="dash-list"></div>
+                </div>
+                <div class="dashboard-foot">
+                  <span><i></i> Natalia envió la orden #1847 directamente a cocina</span>
+                  <span>Actualizado ahora</span>
+                </div>
+              </div>
+            </div>
+            </div>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="how section-light" id="how">
+      <div class="section-inner">
+        <div class="section-heading reveal">
+          <div class="heading-copy">
+            <p class="eyebrow eyebrow-light">Cómo funciona</p>
+            <h2>Del teléfono a tu operación,<br><em>sin pasos perdidos.</em></h2>
+            <p class="heading-subtitle">
+              Adaptamos el agente a tu menú, tus reglas y las herramientas que ya usa tu equipo.
+              Tus clientes llaman como siempre; tu operación recibe información lista para actuar.
+            </p>
+          </div>
+        </div>
+
+        <div class="how-grid">
+          <article class="how-card reveal">
+            <div class="how-card-info">
+              <h3>Conecta</h3>
+              <p>Enlazamos la atención inteligente con el número del negocio y conservamos una ruta directa a tu equipo.</p>
+            </div>
+            <div class="how-card-img">
+              <img src="https://images.unsplash.com/photo-1587560699334-bea93391dcef?w=600&q=80&auto=format&fit=crop" alt="Teléfono de oficina conectado sobre un escritorio" loading="lazy">
+            </div>
+          </article>
+
+          <article class="how-card reveal">
+            <div class="how-card-info">
+              <h3>Conversa</h3>
+              <p>Resuelve dudas, conoce paquetes, existencias y modificadores, y conserva el contexto aunque la conversación cambie.</p>
+            </div>
+            <div class="how-card-img">
+              <img src="https://images.unsplash.com/photo-1525182008055-f88b95ff7980?w=600&q=80&auto=format&fit=crop" alt="Persona atendiendo una llamada telefónica en la oficina" loading="lazy">
+            </div>
+          </article>
+
+          <article class="how-card reveal">
+            <div class="how-card-info">
+              <h3>Entrega</h3>
+              <p>Valida los datos críticos y registra el resultado en el punto de venta, sistema o tablero que utiliza tu negocio.</p>
+            </div>
+            <div class="how-card-img">
+              <img src="https://images.unsplash.com/photo-1647427017067-8f33ccbae493?w=600&q=80&auto=format&fit=crop" alt="Dedo tocando la pantalla de un punto de venta junto al recibo" loading="lazy">
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq section-light" id="faq" aria-labelledby="faq-title">
+      <div class="section-inner faq-layout">
+        <div class="faq-intro reveal">
+          <p class="eyebrow eyebrow-light">Preguntas frecuentes</p>
+          <h2 id="faq-title">Lo importante,<br><em>antes de empezar.</em></h2>
+          <p>La configuración final depende de tu volumen, tus reglas y las herramientas que utiliza tu equipo.</p>
+          <a href="#contact" class="faq-contact-link">Cuéntanos cómo funciona tu negocio <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="faq-list reveal">
+          <details>
+            <summary>¿Conservo mi número actual?</summary>
+            <p>Sí. Enlazamos Natalia con tu línea actual para que tus clientes sigan marcando el mismo número.</p>
+          </details>
+          <details>
+            <summary>¿Qué pasa si el agente no entiende o hay que pasar con una persona?</summary>
+            <p>Pide una aclaración breve y, si la ambigüedad sigue o el caso sale de sus reglas, transfiere la llamada con el contexto ya recopilado a los motivos, horarios y números que definimos contigo.</p>
+          </details>
+          <details>
+            <summary>¿Puede atender varias llamadas simultáneas?</summary>
+            <p>Sí. El servicio puede mantener varias conversaciones al mismo tiempo; dimensionamos el plan según tu volumen y horarios pico.</p>
+          </details>
+          <details>
+            <summary>¿Qué pasa si el sistema del negocio está caído?</summary>
+            <p>Natalia no inventa una confirmación. Sigue la contingencia acordada: reintentar, registrar temporalmente o transferir a tu equipo.</p>
+          </details>
+          <details>
+            <summary>¿Graban las llamadas y dónde se guardan los datos?</summary>
+            <p>La grabación es configurable y se informa conforme al flujo acordado; también podemos trabajar solo con transcripción. El almacenamiento, proveedores, retención y eliminación se documentan antes de operar.</p>
+          </details>
+          <details>
+            <summary>¿Cuánto tarda la instalación?</summary>
+            <p>La conexión del número y un flujo estándar puede quedar lista en 48 horas después de recibir accesos y datos básicos. Integraciones especiales se revisan por separado.</p>
+          </details>
+          <details>
+            <summary>¿Con cuáles sistemas puede integrarse?</summary>
+            <p>Con puntos de venta, CRM, agendas, bases de datos y herramientas propias que ofrezcan API o una ruta segura de integración.</p>
+          </details>
+          <details>
+            <summary>¿Cómo se cobra y qué pasa si cancelo?</summary>
+            <p>Preparamos una cotización personalizada según minutos, llamadas simultáneas, integraciones y mantenimiento. Si cancelas, tu número vuelve al flujo telefónico acordado y coordinamos la entrega o eliminación de datos aplicable.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band" id="contact">
+      <div class="section-inner contact-layout">
+        <div class="cta-inner">
+          <h2>Haz que cada llamada<br><em>avance tu operación.</em></h2>
+          <p>En una demo de 15 minutos te mostramos cómo atendería Natalia a los clientes de tu negocio.</p>
+          <div class="quote-note">
+            <strong>Cotización personalizada</strong>
+            <span>Según volumen, integraciones y necesidades de atención.</span>
+          </div>
+          <div class="cta-assurance">
+            <span>Sin compromiso</span><span>Implementación acompañada</span>
+          </div>
+        </div>
+        <div class="calendly-panel">
+          <div class="form-heading">
+            <span>Agenda tu demo</span>
+            <strong>Elige el día y la hora que te acomode.</strong>
+          </div>
+          <div class="calendly-inline-widget" data-url="https://calendly.com/figueroaedu117/30min?hide_gdpr_banner=1" style="min-width:280px;height:640px;"></div>
+        </div>
+      </div>
+
+      <div class="section-inner contact-alt">
+        <div class="form-heading contact-alt-heading">
+          <span>¿Prefieres platicar primero?</span>
+          <strong>Déjanos tus datos y te contactamos nosotros.</strong>
+        </div>
+        <form class="contact-form" id="contact-form">
+          <label>
+            Nombre
+            <input type="text" name="name" autocomplete="name" required placeholder="Tu nombre">
+          </label>
+          <label>
+            Negocio
+            <input type="text" name="business" autocomplete="organization" required placeholder="Nombre del negocio">
+          </label>
+          <div class="form-row">
+            <label>
+              Industria
+              <select name="industry" required>
+                <option value="">Selecciona</option>
+                <option>Restaurante</option>
+                <option>Clínica o consultorio</option>
+                <option>Call center</option>
+                <option>Taller</option>
+                <option>Otra industria</option>
+              </select>
+            </label>
+            <label>
+              Llamadas al día
+              <select name="calls">
+                <option>No estoy seguro</option>
+                <option>Menos de 20</option>
+                <option>20 a 50</option>
+                <option>51 a 100</option>
+                <option>Más de 100</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            Teléfono
+            <input type="tel" name="phone" autocomplete="tel" required placeholder="771 000 0000">
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-dark">Continuar por WhatsApp <span aria-hidden="true">↗</span></button>
+            <button type="submit" formtarget="_self" class="btn btn-secondary" id="contact-email-btn">Continuar por correo <span aria-hidden="true">↗</span></button>
+          </div>
+          <small>Prepararemos el mensaje con tus datos para que puedas revisarlo antes de enviarlo.</small>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="section-inner footer-inner">
+      <div class="footer-brand">
+        <a href="#hero" class="logo"><span class="logo-word">Natal<span class="logo-letter logo-letter-i">i</span><span class="logo-letter logo-letter-a">a</span></span></a>
+        <p>Atención telefónica inteligente que conversa, confirma y actúa dentro de tu operación.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <span>Producto</span>
+          <a href="#how">Cómo funciona</a>
+          <a href="#live-call">Demos de llamada</a>
+          <a href="#capabilities">Capacidades</a>
+          <a href="#faq">Preguntas frecuentes</a>
+        </div>
+        <div>
+          <span>Contacto</span>
+          <a href="mailto:figueroaedu117@gmail.com">figueroaedu117@gmail.com</a>
+          <a href="https://wa.me/525656956537" rel="noopener">WhatsApp · +52 56 5695 6537</a>
+          <a href="#contact">Agenda una demo</a>
+        </div>
+      </div>
+    </div>
+    <div class="section-inner footer-bottom">
+      <div class="footer-owner">
+        <span>© 2026 Natalia</span>
+        <a class="footer-credit" href="https://github.com/EduardoAllen02" target="_blank" rel="noopener">Developed by Eduardo Emmanuel Figueroa Gutierrez</a>
+      </div>
+      <div class="footer-legal"><a href="aviso-de-privacidad.html">Aviso de privacidad</a><a href="terminos.html">Términos del servicio</a></div>
+    </div>
+  </footer>
+
+  <script src="js/site.js?v=20260726-9"></script>
+  <script src="js/call-carousel.js?v=20260728-2"></script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+</body>
+</html>

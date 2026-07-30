@@ -1,0 +1,145 @@
+{
+  "generatedAt": "2026-07-29T00:11:33.192Z",
+  "model": "s2.1-pro-free",
+  "voiceReferenceConfigured": true,
+  "keyboardEffect": "audio/demos/keyboard.mp3",
+  "clips": [
+    {
+      "industry": "restaurante",
+      "index": 1,
+      "slug": "saludo",
+      "text": "Buenas tardes, gracias por llamar a Lobos Pizza y Snacks. ¿En qué le puedo ayudar?",
+      "file": "audio/demos/restaurante/natalia-01-saludo.mp3"
+    },
+    {
+      "industry": "restaurante",
+      "index": 2,
+      "slug": "modalidad",
+      "text": "Claro. ¿Va a pasar por él o se lo enviamos?",
+      "file": "audio/demos/restaurante/natalia-02-modalidad.mp3"
+    },
+    {
+      "industry": "restaurante",
+      "index": 3,
+      "slug": "existencia",
+      "text": "Sí, tenemos Fanta de seiscientos mililitros. ¿Le agrego una?",
+      "keyboardBefore": true,
+      "file": "audio/demos/restaurante/natalia-03-existencia.mp3"
+    },
+    {
+      "industry": "restaurante",
+      "index": 4,
+      "slug": "confirmacion",
+      "text": "Perfecto, Miguel. Es un paquete tres y una Fanta, para recoger. Son doscientos sesenta pesos y queda en veinte minutos. ¿Está bien?",
+      "file": "audio/demos/restaurante/natalia-04-confirmacion.mp3"
+    },
+    {
+      "industry": "restaurante",
+      "index": 5,
+      "slug": "cierre",
+      "text": "Listo, ya quedó su pedido. Lo mandé a cocina.",
+      "file": "audio/demos/restaurante/natalia-05-cierre.mp3"
+    },
+    {
+      "industry": "clinica",
+      "index": 1,
+      "slug": "saludo",
+      "text": "Clínica Horizonte, buenas tardes. ¿Con quién tengo el gusto?",
+      "file": "audio/demos/clinica/natalia-01-saludo.mp3"
+    },
+    {
+      "industry": "clinica",
+      "index": 2,
+      "slug": "disponibilidad",
+      "text": "Sí, Mariana. Mañana tengo a las cinco y media. ¿Le queda bien?",
+      "keyboardBefore": true,
+      "file": "audio/demos/clinica/natalia-02-disponibilidad.mp3"
+    },
+    {
+      "industry": "clinica",
+      "index": 3,
+      "slug": "primera-consulta",
+      "text": "¿Es la primera vez que viene con nosotros?",
+      "file": "audio/demos/clinica/natalia-03-primera-consulta.mp3"
+    },
+    {
+      "industry": "clinica",
+      "index": 4,
+      "slug": "envio-confirmacion",
+      "text": "Le mando la ubicación a este mismo número, ¿está bien?",
+      "file": "audio/demos/clinica/natalia-04-envio-confirmacion.mp3"
+    },
+    {
+      "industry": "clinica",
+      "index": 5,
+      "slug": "cierre",
+      "text": "Listo, Mariana. Quedó mañana a las cinco y media. Le llega la confirmación por mensaje.",
+      "file": "audio/demos/clinica/natalia-05-cierre.mp3"
+    },
+    {
+      "industry": "call-center",
+      "index": 1,
+      "slug": "saludo",
+      "text": "Nova Atención, buenas tardes. ¿En qué le ayudo?",
+      "file": "audio/demos/call-center/natalia-01-saludo.mp3"
+    },
+    {
+      "industry": "call-center",
+      "index": 2,
+      "slug": "numero-servicio",
+      "text": "Con gusto lo reviso. ¿Me ayuda con el número de la línea?",
+      "file": "audio/demos/call-center/natalia-02-numero-servicio.mp3"
+    },
+    {
+      "industry": "call-center",
+      "index": 3,
+      "slug": "incidencia",
+      "text": "Gracias. Veo una falla general en su zona. El servicio debe quedar restablecido antes de las seis.",
+      "keyboardBefore": true,
+      "file": "audio/demos/call-center/natalia-03-incidencia.mp3"
+    },
+    {
+      "industry": "call-center",
+      "index": 4,
+      "slug": "cierre",
+      "text": "Sí, ya quedó. Su folio es cuarenta y ocho veintiuno; también se lo mando por mensaje.",
+      "file": "audio/demos/call-center/natalia-04-cierre.mp3"
+    },
+    {
+      "industry": "taller",
+      "index": 1,
+      "slug": "saludo",
+      "text": "Taller Motor Norte, buenas tardes. ¿En qué le podemos ayudar?",
+      "file": "audio/demos/taller/natalia-01-saludo.mp3"
+    },
+    {
+      "industry": "taller",
+      "index": 2,
+      "slug": "vehiculo",
+      "text": "Sí, claro. ¿Qué camioneta es?",
+      "file": "audio/demos/taller/natalia-02-vehiculo.mp3"
+    },
+    {
+      "industry": "taller",
+      "index": 3,
+      "slug": "antiguedad-falla",
+      "text": "¿El ruido empezó hoy o ya tiene varios días?",
+      "file": "audio/demos/taller/natalia-03-antiguedad-falla.mp3"
+    },
+    {
+      "industry": "taller",
+      "index": 4,
+      "slug": "disponibilidad",
+      "text": "Tengo espacio mañana a las nueve para revisarla. El diagnóstico tarda alrededor de una hora.",
+      "keyboardBefore": true,
+      "file": "audio/demos/taller/natalia-04-disponibilidad.mp3"
+    },
+    {
+      "industry": "taller",
+      "index": 5,
+      "slug": "cierre",
+      "text": "Listo, Carlos. Quedó mañana a las nueve. El precio exacto se lo damos después de revisar los frenos.",
+      "file": "audio/demos/taller/natalia-05-cierre.mp3"
+    }
+  ]
+}
