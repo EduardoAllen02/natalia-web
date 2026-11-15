@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#f7f9f8">
+  <meta name="theme-color" content="#f5f4f1">
   <title>Natalia — Agentes de voz para la operación de tu negocio</title>
   <meta name="description" content="Natalia atiende llamadas, consulta la operación de tu negocio y ejecuta acciones en tus sistemas, con atención simultánea y transferencia humana.">
   <link rel="canonical" href="https://natem.ai/">
@@ -34,13 +34,16 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:ital,opsz,wght@0,12..96,400;0,12..96,500;0,12..96,600;0,12..96,700;1,12..96,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Instrument+Serif:ital@1&family=Outfit:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css?v=20260728-3">
   <link rel="stylesheet" href="css/call-carousel.css?v=20260726-9">
   <link rel="stylesheet" href="css/operations-verticals.css?v=20260726-2">
+  <link rel="stylesheet" href="css/glass.css?v=20261115-1">
 </head>
 <body>
   <a class="skip-link" href="#main">Ir al contenido</a>
+  <div class="nx-backdrop" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="nx-grain" aria-hidden="true"></div>
 
   <nav class="nav" aria-label="Navegación principal">
     <div class="nav-inner">
@@ -51,31 +54,50 @@
         <a href="#capabilities">Capacidades</a>
         <a href="#faq">Preguntas frecuentes</a>
       </div>
-      <a href="#contact" class="btn btn-primary btn-small">Agenda una demo</a>
+      <a href="#contact" class="btn btn-primary btn-small">Agenda una demo <span aria-hidden="true">↗</span></a>
     </div>
   </nav>
 
   <main id="main">
-    <section class="hero" id="hero">
-      <div class="hero-ambient" aria-hidden="true">
-        <span class="ambient-orb ambient-orb-one"></span>
-        <span class="ambient-orb ambient-orb-two"></span>
-        <span class="ambient-grid"></span>
-      </div>
-      <div class="hero-inner">
-        <h1>Atención telefónica para negocios <em>que no pueden detenerse</em></h1>
-        <p class="hero-subtitle">
-          Natalia conversa con tus clientes, consulta tu operación y realiza acciones
-          directamente en tu sistema. Sin líneas ocupadas y con transferencia humana cuando hace falta.
-        </p>
-        <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary">Agenda una demo <span aria-hidden="true">↗</span></a>
-          <a href="#live-call" class="btn btn-secondary">Escuchar una llamada <span aria-hidden="true">↓</span></a>
+    <section class="nx-hero" id="hero">
+      <div class="nx-hero-grid">
+        <div class="nx-hero-copy">
+          <p class="nx-eyebrow">Agente de voz con IA para tu negocio</p>
+          <h1>Atención telefónica para negocios <em>que no pueden detenerse.</em></h1>
+          <p class="nx-lead">
+            Natalia contesta el teléfono, consulta tu operación y deja el pedido, la cita o el reporte
+            registrado en tu sistema. Sin líneas ocupadas, y con una persona al otro lado cuando hace falta.
+          </p>
+          <div class="nx-actions">
+            <a href="#contact" class="btn btn-primary">Agenda una demo <span aria-hidden="true">↗</span></a>
+            <a href="#live-call" class="btn btn-secondary">Escuchar una llamada <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="nx-proof" aria-label="Características principales">
+            <span class="nx-pill">Español natural</span>
+            <span class="nx-pill">Varias llamadas a la vez</span>
+            <span class="nx-pill">Conectada a tu sistema</span>
+          </div>
         </div>
-        <div class="hero-proof" aria-label="Características principales">
-          <span><i aria-hidden="true"></i> Español natural</span>
-          <span><i aria-hidden="true"></i> Integración con tu operación</span>
-          <span><i aria-hidden="true"></i> Atención simultánea</span>
+
+        <div class="nx-stage">
+          <canvas aria-hidden="true"></canvas>
+          <span class="nx-fallback" aria-hidden="true"></span>
+          <span class="nx-note">Ejemplo ilustrativo</span>
+          <div class="nx-float nx-call nx-glass">
+            <header>
+              <span class="nx-ico is-accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg></span>
+              <div><b>Llamada entrante</b><small><span data-nx-from>Restaurante</span> · atiende Natalia</small></div>
+            </header>
+            <div class="nx-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <p class="nx-bubble"><small>Natalia</small><span data-nx-line>Lobos Pizza y Snacks, buenas tardes. ¿En qué le puedo ayudar?</span></p>
+          </div>
+          <div class="nx-float nx-done"><span class="nx-ico is-accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><span data-nx-done>Pedido enviado a cocina</span></div>
+          <div class="nx-float nx-niches nx-glass" role="group" aria-label="Cambia de industria para ver a Natalia en otro negocio">
+            <button type="button" aria-pressed="true">Restaurante</button>
+            <button type="button" aria-pressed="false">Clínica</button>
+            <button type="button" aria-pressed="false">Call center</button>
+            <button type="button" aria-pressed="false">Taller</button>
+          </div>
         </div>
       </div>
     </section>
@@ -84,7 +106,7 @@
       <div class="section-inner call-inner">
         <div class="call-heading reveal">
           <h2>Escucha una atención<br><em>rápida y bien resuelta.</em></h2>
-          <p>Elige una industria para escuchar cómo Natalia conversa, consulta información y completa el siguiente paso.</p>
+          <p>Elige una industria y escucha la llamada completa: cómo conversa, qué consulta y qué deja registrado al colgar.</p>
         </div>
 
         <div class="call-showcase reveal" id="call-stage">
@@ -118,24 +140,30 @@
       </div>
     </section>
 
-    <section class="proof-quote section-light" aria-labelledby="proof-quote-title">
-      <div class="section-inner proof-quote-inner reveal">
-        <blockquote id="proof-quote-title">
-          “Cuando se juntan los pedidos, ya no se nos van las llamadas.
-          <em>Natalia contesta</em> y nos deja el pedido listo.”
-        </blockquote>
-        <p class="proof-quote-source">Mario Ávila <span>—</span> Dueño de restaurante en Pachuca, Hidalgo</p>
+    <section class="nx-quote" aria-labelledby="proof-quote-title">
+      <div class="section-inner reveal">
+        <figure class="nx-quote-card nx-glass">
+          <span class="nx-orb" aria-hidden="true"></span>
+          <span class="nx-quote-mark" aria-hidden="true">“</span>
+          <div>
+            <blockquote id="proof-quote-title">
+              Cuando se juntan los pedidos, ya no se nos van las llamadas.
+              <em>Natalia contesta</em> y nos deja el pedido listo.
+            </blockquote>
+            <figcaption><b>Mario Ávila</b><span>Dueño de restaurante en Pachuca, Hidalgo</span></figcaption>
+          </div>
+        </figure>
       </div>
     </section>
 
-    <section class="capabilities section-light" id="capabilities">
+    <section class="capabilities" id="capabilities">
       <div class="section-inner">
         <div class="capabilities-intro reveal">
           <div class="heading-copy">
             <h2>Más que contestar:<br><em>ejecuta el siguiente paso.</em></h2>
             <p class="heading-subtitle">
-              Empezamos con restaurantes porque en hora pico cada llamada cuenta.
-              La solución combina conversación, reglas de negocio e integración con sistemas reales.
+              Empezamos por restaurantes, donde en hora pico cada llamada es un pedido.
+              Natalia conversa; tus reglas y tu sistema deciden precios, existencias y confirmaciones.
             </p>
           </div>
         </div>
@@ -143,7 +171,7 @@
         <div class="operations-layout">
           <article class="feature-panel reveal">
             <div class="feature-panel-head">
-              <span class="sector-badge">RESTAURANTES · DISPONIBLE</span>
+              <span class="sector-badge">Restaurantes · disponible</span>
               <span class="panel-index">01 / 01</span>
             </div>
             <h3>Control en cada decisión importante.</h3>
@@ -235,61 +263,70 @@
             </div>
           </article>
         </div>
-
+        <p class="nx-example">Pantalla de ejemplo: negocio, pedidos y cifras ilustrativos.</p>
       </div>
     </section>
 
-    <section class="how section-light" id="how">
+    <section class="how" id="how">
       <div class="section-inner">
-        <div class="section-heading reveal">
-          <div class="heading-copy">
-            <p class="eyebrow eyebrow-light">Cómo funciona</p>
-            <h2>Del teléfono a tu operación,<br><em>sin pasos perdidos.</em></h2>
-            <p class="heading-subtitle">
-              Adaptamos el agente a tu menú, tus reglas y las herramientas que ya usa tu equipo.
-              Tus clientes llaman como siempre; tu operación recibe información lista para actuar.
-            </p>
+        <div class="nx-head reveal">
+          <div>
+            <p class="eyebrow">Cómo funciona</p>
+            <h2>Del teléfono a tu operación, <em>sin pasos perdidos.</em></h2>
           </div>
+          <p class="nx-lead">
+            Adaptamos a Natalia a tu catálogo, tus reglas y las herramientas que ya usa tu equipo.
+            Tus clientes marcan el número de siempre; tu operación recibe información lista para actuar.
+          </p>
         </div>
 
-        <div class="how-grid">
-          <article class="how-card reveal">
-            <div class="how-card-info">
+        <div class="nx-steps">
+          <article class="nx-step nx-card reveal">
+            <span class="nx-step-n">01</span>
+            <div>
               <h3>Conecta</h3>
-              <p>Enlazamos la atención inteligente con el número del negocio y conservamos una ruta directa a tu equipo.</p>
+              <p>Enlazamos a Natalia con el número de tu negocio y dejamos siempre abierta una ruta directa a tu equipo.</p>
             </div>
-            <div class="how-card-img">
-              <img src="https://images.unsplash.com/photo-1587560699334-bea93391dcef?w=600&q=80&auto=format&fit=crop" alt="Teléfono de oficina conectado sobre un escritorio" loading="lazy">
+            <div class="nx-mini" aria-hidden="true">
+              <div class="nx-row"><span class="nx-ico is-ink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg></span>Tu número de siempre</div>
+              <span class="nx-link"></span>
+              <div class="nx-row"><span class="nx-ico is-accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg></span>Natalia<small>contesta</small></div>
+              <span class="nx-link"></span>
+              <div class="nx-row"><span class="nx-ico is-ink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>Tu equipo<small>si hace falta</small></div>
             </div>
           </article>
 
-          <article class="how-card reveal">
-            <div class="how-card-info">
+          <article class="nx-step nx-glass reveal">
+            <span class="nx-step-n">02</span>
+            <div>
               <h3>Conversa</h3>
-              <p>Resuelve dudas, conoce paquetes, existencias y modificadores, y conserva el contexto aunque la conversación cambie.</p>
+              <p>Resuelve dudas, conoce paquetes, existencias y horarios, y no pierde el hilo aunque la persona cambie de idea.</p>
             </div>
-            <div class="how-card-img">
-              <img src="https://images.unsplash.com/photo-1525182008055-f88b95ff7980?w=600&q=80&auto=format&fit=crop" alt="Persona atendiendo una llamada telefónica en la oficina" loading="lazy">
+            <div class="nx-mini" aria-hidden="true">
+              <p class="nx-bubble is-me">Mejor que sea para recoger.</p>
+              <p class="nx-bubble"><small>Natalia</small>Claro, lo cambio a recoger. ¿A nombre de quién?</p>
             </div>
           </article>
 
-          <article class="how-card reveal">
-            <div class="how-card-info">
+          <article class="nx-step nx-dark reveal">
+            <span class="nx-step-n">03</span>
+            <div>
               <h3>Entrega</h3>
-              <p>Valida los datos críticos y registra el resultado en el punto de venta, sistema o tablero que utiliza tu negocio.</p>
+              <p>Confirma los datos críticos y registra el resultado en el punto de venta, la agenda o el tablero que ya usa tu negocio.</p>
             </div>
-            <div class="how-card-img">
-              <img src="https://images.unsplash.com/photo-1647427017067-8f33ccbae493?w=600&q=80&auto=format&fit=crop" alt="Dedo tocando la pantalla de un punto de venta junto al recibo" loading="lazy">
+            <div class="nx-mini" aria-hidden="true">
+              <div class="nx-row"><span class="nx-ico is-accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>Datos confirmados<small>nombre · total</small></div>
+              <div class="nx-row"><span class="nx-ico is-accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 10h18M3 15h18M10 4v16"/></svg></span>Registrado en tu sistema<small>ahora</small></div>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="faq section-light" id="faq" aria-labelledby="faq-title">
+    <section class="faq" id="faq" aria-labelledby="faq-title">
       <div class="section-inner faq-layout">
         <div class="faq-intro reveal">
-          <p class="eyebrow eyebrow-light">Preguntas frecuentes</p>
+          <p class="eyebrow">Preguntas frecuentes</p>
           <h2 id="faq-title">Lo importante,<br><em>antes de empezar.</em></h2>
           <p>La configuración final depende de tu volumen, tus reglas y las herramientas que utiliza tu equipo.</p>
           <a href="#contact" class="faq-contact-link">Cuéntanos cómo funciona tu negocio <span aria-hidden="true">→</span></a>
@@ -332,16 +369,18 @@
     </section>
 
     <section class="cta-band" id="contact">
-      <div class="section-inner contact-layout">
+      <div class="nx-contact nx-on-dark reveal">
+      <span class="nx-orb" aria-hidden="true"></span>
+      <div class="contact-layout">
         <div class="cta-inner">
           <h2>Haz que cada llamada<br><em>avance tu operación.</em></h2>
-          <p>En una demo de 15 minutos te mostramos cómo atendería Natalia a los clientes de tu negocio.</p>
+          <p>En una demo de 15 minutos escuchas cómo atendería Natalia a los clientes de tu negocio.</p>
           <div class="quote-note">
             <strong>Cotización personalizada</strong>
             <span>Según volumen, integraciones y necesidades de atención.</span>
           </div>
           <div class="cta-assurance">
-            <span>Sin compromiso</span><span>Implementación acompañada</span>
+            <span>Sin compromiso</span><span>Te acompañamos en la implementación</span>
           </div>
         </div>
         <div class="calendly-panel">
@@ -351,6 +390,7 @@
           </div>
           <div class="calendly-inline-widget" data-url="https://calendly.com/figueroaedu117/30min?hide_gdpr_banner=1" style="min-width:280px;height:640px;"></div>
         </div>
+      </div>
       </div>
 
       <div class="section-inner contact-alt">
@@ -410,6 +450,7 @@
       <div class="footer-brand">
         <a href="#hero" class="logo"><span class="logo-word">Natal<span class="logo-letter logo-letter-i">i</span><span class="logo-letter logo-letter-a">a</span></span></a>
         <p>Atención telefónica inteligente que conversa, confirma y actúa dentro de tu operación.</p>
+        <a class="nx-natem" href="https://eduardoallen02.github.io/natem-web/" target="_blank" rel="noopener">Un producto de Natem <span aria-hidden="true">↗</span></a>
       </div>
       <div class="footer-links">
         <div>
@@ -438,6 +479,7 @@
 
   <script src="js/site.js?v=20260726-9"></script>
   <script src="js/call-carousel.js?v=20260728-2"></script>
+  <script type="module" src="js/orb.js?v=20261115-1"></script>
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </body>
 </html>
