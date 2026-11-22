@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://natem.ai/sitemap.xml
+Sitemap: https://natem-ai.com/natalia/sitemap.xml
