@@ -335,6 +335,11 @@
   100% { opacity: 0; transform: scale(1.7); }
 }
 
+@keyframes nc-ring-sm {
+  0% { opacity: 0.5; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.45); }
+}
+
 .nc-play-text {
   min-width: 0;
 }
@@ -824,10 +829,16 @@
     grid-row: auto;
   }
 
+  /* En móvil el botón es un círculo junto a la onda, sin la píldora con texto. */
   .nc-top {
-    gap: 14px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 14px 12px;
     padding: 18px 16px 14px;
   }
+
+  .nc-id { grid-column: 1 / -1; }
 
   .nc-convo {
     padding: 14px 16px 12px;
@@ -846,23 +857,51 @@
   .nc-id strong { font-size: 16px; }
   .nc-id small { font-size: 13px; }
 
-  .nc-play {
-    gap: 14px;
-    padding: 10px 16px 10px 10px;
+  .nc-play,
+  .nc-play[data-mode="mute"] {
+    width: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    box-shadow: none;
+  }
+
+  .nc-play:hover {
+    transform: none;
+    box-shadow: none;
   }
 
   .nc-play-btn {
-    width: 58px;
-    height: 58px;
+    width: 46px;
+    height: 46px;
+    box-shadow: 0 8px 16px -8px color-mix(in srgb, var(--call-accent) 85%, transparent);
   }
+
+  .nc-play[data-mode="mute"] .nc-play-btn { background: var(--call-ink); }
 
   .nc-play-btn svg {
-    width: 26px;
-    height: 26px;
+    width: 22px;
+    height: 22px;
   }
 
-  .nc-play-text b { font-size: 17.5px; }
-  .nc-play-text small { font-size: 13px; }
+  .nc-play[data-mode="play"] .nc-play-btn svg { margin-left: 3px; }
+
+  .call-slide.active .nc-play[data-mode="play"] .nc-play-btn::before,
+  .call-slide.active .nc-play[data-mode="play"] .nc-play-btn::after {
+    animation-name: nc-ring-sm;
+  }
+
+  /* El texto sigue disponible para lectores de pantalla. */
+  .nc-play-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
   .nc-wave { height: 28px; }
 
   .nc-msg {
@@ -895,7 +934,6 @@
 }
 
 @media (max-width: 380px) {
-  .nc-play-text small { display: none; }
   .nc-transcript { height: 270px; }
 }
 
