@@ -264,7 +264,7 @@
     }
   }
 
-  // Tres estados del botón grande: escuchar (voz apagada), silenciar (voz sonando) y repetir (llamada terminada con voz).
+  // Tres estados del botón redondo: escuchar (voz apagada), silenciar (voz sonando) y repetir (llamada terminada con voz).
   function updateAudioControls() {
     slides().forEach(function (slide) {
       var control = slide.querySelector(".nc-play");
@@ -275,6 +275,7 @@
       if (control.dataset.mode === mode) return;
       control.dataset.mode = mode;
       control.setAttribute("aria-pressed", mode === "mute" ? "true" : "false");
+      control.title = PLAY_COPY[mode][0];
       control.querySelector(".nc-play-btn").innerHTML = ICONS[mode];
       control.querySelector("b").textContent = PLAY_COPY[mode][0];
       control.querySelector("small").textContent = PLAY_COPY[mode][1];
