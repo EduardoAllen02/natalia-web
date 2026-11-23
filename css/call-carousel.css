@@ -100,7 +100,7 @@
 }
 
 .call-carousel-shell {
-  --slide-width: min(clamp(840px, 74vw, 1600px), calc(100vw - 48px));
+  --slide-width: min(1180px, max(840px, 74vw), calc(100vw - 48px));
   position: relative;
 }
 
@@ -169,157 +169,226 @@
   container-type: inline-size;
 }
 
+/* ── Tarjeta de llamada ──────────────────────────────────────────────────
+   Columna izquierda (color de la industria): quién llama, botón grande para
+   escuchar, qué hace Natalia y el resultado. Columna derecha: la conversación
+   en burbujas. En móvil se apila: arriba el botón, luego la charla, al final
+   el resultado. */
 .call-card {
   height: 100%;
+  display: grid;
+  grid-template-columns: minmax(300px, 36%) minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
   overflow: hidden;
-  border: 1px solid #d1dddd;
-  border-radius: 24px;
-  color: #203033;
+  border: 1px solid #e2e8e8;
+  border-radius: 28px;
+  color: #1b2a2d;
   background: #fff;
   box-shadow: 0 22px 55px rgba(32, 60, 64, 0.13);
-  transition: opacity 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+  transition: opacity 260ms ease, transform 260ms ease, box-shadow 260ms ease;
 }
 
 .call-slide:not(.active) .call-card {
-  opacity: 0.7;
-  transform: scale(0.975);
+  opacity: 0.45;
+  transform: scale(0.965);
   box-shadow: 0 12px 34px rgba(32, 60, 64, 0.08);
 }
 
-.call-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 23px 28px 19px;
-  border-bottom: 1px solid #e4ebeb;
+.nc-top,
+.nc-bottom {
+  grid-column: 1;
+  min-width: 0;
+  background: var(--call-soft);
 }
 
-.call-identity,
-.outcome-main {
+.nc-top {
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 26px 28px 20px;
+}
+
+.nc-bottom {
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 6px 28px 26px;
+}
+
+.nc-convo {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 22px 30px 24px;
+}
+
+/* Quién llama */
+.nc-id {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.nc-icon {
+  flex: none;
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border-radius: 15px;
+  color: var(--call-ink);
+  background: #fff;
+  box-shadow: 0 8px 18px -10px rgba(20, 40, 44, 0.35);
+  font: 600 17px/1 var(--font-head);
+}
+
+.nc-id strong {
+  display: block;
+  color: #13262a;
+  font: 600 18px/1.2 var(--font-head);
+}
+
+.nc-id small {
+  display: block;
+  margin-top: 3px;
+  color: color-mix(in srgb, var(--call-ink) 72%, #6b7a7c);
+  font-size: 13.5px;
+}
+
+/* Botón para escuchar: lo más visible de la tarjeta */
+.nc-play {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px 12px 12px;
+  border: 1.5px solid color-mix(in srgb, var(--call-accent) 50%, transparent);
+  border-radius: 999px;
+  color: #13262a;
+  background: #fff;
+  box-shadow: 0 16px 32px -16px color-mix(in srgb, var(--call-accent) 85%, transparent);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.nc-play:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 36px -14px color-mix(in srgb, var(--call-accent) 90%, transparent);
+}
+
+.nc-play:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--call-accent) 55%, transparent);
+  outline-offset: 3px;
+}
+
+.nc-play-btn {
+  position: relative;
+  flex: none;
+  display: grid;
+  width: 66px;
+  height: 66px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--call-accent);
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.nc-play:hover .nc-play-btn { transform: scale(1.05); }
+
+.nc-play-btn svg {
+  position: relative;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+}
+
+.nc-play[data-mode="play"] .nc-play-btn svg { margin-left: 4px; }
+
+/* Ondas que invitan a tocar mientras la voz está apagada */
+.nc-play-btn::before,
+.nc-play-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--call-accent);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.call-slide.active .nc-play[data-mode="play"] .nc-play-btn::before,
+.call-slide.active .nc-play[data-mode="play"] .nc-play-btn::after {
+  animation: nc-ring 2.2s ease-out infinite;
+}
+
+.call-slide.active .nc-play[data-mode="play"] .nc-play-btn::after { animation-delay: 1.1s; }
+
+@keyframes nc-ring {
+  0% { opacity: 0.7; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.7); }
+}
+
+.nc-play-text {
+  min-width: 0;
+}
+
+.nc-play-text b {
+  display: block;
+  font: 600 19px/1.15 var(--font-head);
+}
+
+.nc-play-text small {
+  display: block;
+  margin-top: 5px;
+  color: #56676a;
+  font-size: 13.5px;
+  line-height: 1.3;
+}
+
+.nc-play[data-mode="mute"] {
+  border-color: transparent;
+  color: #fff;
+  background: var(--call-ink);
+}
+
+.nc-play[data-mode="mute"] .nc-play-btn { background: rgba(255, 255, 255, 0.16); }
+.nc-play[data-mode="mute"] .nc-play-text small { color: rgba(255, 255, 255, 0.78); }
+
+/* Onda de voz y reloj */
+.nc-wave-row {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-.call-meta-actions {
+.nc-wave {
+  flex: 1;
   display: flex;
+  height: 34px;
   align-items: center;
-  gap: 18px;
+  gap: 3px;
 }
 
-.call-audio-control {
-  min-height: 36px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 12px;
-  border: 1px solid color-mix(in srgb, var(--call-accent) 38%, #cbd8d9);
-  border-radius: 999px;
-  color: var(--call-ink);
-  background: var(--call-soft);
-  font: 600 11px/1 var(--font-body);
-  cursor: pointer;
-}
-
-.call-audio-control:disabled {
-  border-color: #d9e1e2;
-  color: #6f7c7e;
-  background: #f3f6f6;
-  cursor: default;
-}
-
-.call-audio-control.playing {
-  color: #fff;
-  background: var(--call-ink);
-}
-
-.call-audio-control b { font-weight: 600; }
-
-.business-icon {
-  display: grid;
-  width: 43px;
-  height: 43px;
-  place-items: center;
-  border-radius: 13px;
-  color: var(--call-ink);
-  background: var(--call-soft);
-  font-size: 19px;
-}
-
-.meta-label {
-  display: block;
-  margin-bottom: 4px;
-  color: #7a898c;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-}
-
-.call-identity strong {
-  display: block;
-  color: #183236;
-  font: 600 16px/1.25 var(--font-head);
-}
-
-.call-identity small {
-  display: block;
-  margin-top: 3px;
-  color: #7a898c;
-  font-size: 12px;
-}
-
-.call-time {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-.call-time span {
-  display: block;
-  color: var(--call-accent);
-  font: 600 22px/1 var(--font-head);
-}
-
-.call-time small {
-  color: #879598;
-  font-size: 11px;
-  text-transform: uppercase;
-}
-
-.audio-strip {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  align-items: center;
-  min-height: 82px;
-  padding: 14px 28px;
-  color: #637376;
-  background: var(--call-soft);
-}
-
-.demo-waveform {
-  position: static;
-  inset: auto;
-  display: flex;
-  height: 46px;
-  align-items: center;
-  justify-content: stretch;
-  gap: 4px;
-}
-
-.demo-waveform span {
+.nc-wave span {
   flex: 1 1 0;
-  width: auto;
   min-width: 2px;
-  max-width: 5px;
+  max-width: 4px;
   min-height: 4px;
   border-radius: 999px;
   background: var(--call-accent);
-  opacity: 0.38;
-  transform: scaleY(0.35);
+  opacity: 0.35;
+  transform: scaleY(0.3);
   transform-origin: center;
 }
 
-.call-slide.active.speaking .demo-waveform span {
+.call-slide.active.speaking .nc-wave span {
   animation: friendly-wave 820ms ease-in-out infinite alternate;
 }
 
@@ -328,158 +397,221 @@
   to { transform: scaleY(1); opacity: 0.9; }
 }
 
-.conversation-column {
-  min-height: 300px;
-  padding: 24px 30px 26px;
-}
-
-.conversation-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding-bottom: 17px;
-  border-bottom: 1px solid #e5ecec;
-  color: #627275;
-  font-size: 13px;
-}
-
-.listening-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
+.nc-time {
+  flex: none;
+  min-width: 3.2em;
   color: var(--call-ink);
-  font-weight: 600;
+  font: 600 16px/1 var(--font-head);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
 }
 
-.listening-label::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--call-accent);
-}
-
-.demo-transcript {
-  min-height: 226px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 10px;
-  padding-top: 18px;
-}
-
-.demo-line {
-  display: grid;
-  grid-template-columns: 72px minmax(0, 1fr);
-  gap: 12px;
-  margin: 0;
-  color: #2d3e41;
-  font-size: 13.5px;
-  line-height: 1.5;
-  opacity: 0;
-  transform: translateY(6px);
-  animation: call-line-in 320ms ease forwards;
-}
-
-.demo-line .speaker {
-  padding-top: 2px;
-  color: #7f8d90;
-  font-size: 11px;
+/* Lo que hace Natalia y el resultado */
+.nc-label {
+  display: block;
+  color: color-mix(in srgb, var(--call-ink) 78%, #7a8a8c);
+  font-size: 11.5px;
   font-weight: 700;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
-.demo-line.agente .speaker { color: var(--call-accent); }
+.nc-steps {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 
-.demo-line.agente {
-  color: #17383c;
+.nc-steps li {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: #56676a;
+  font-size: 15px;
+  line-height: 1.3;
+  transition: color 220ms ease;
+}
+
+.nc-steps i {
+  flex: none;
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border: 2px solid color-mix(in srgb, var(--call-accent) 35%, #fff);
+  border-radius: 50%;
+  color: #fff;
+  background: #fff;
+  font: 700 12px/1 var(--font-body);
+  font-style: normal;
+  transition: background 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.nc-steps li.now i {
+  border-color: var(--call-accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--call-accent) 20%, transparent);
+}
+
+.nc-steps li.on {
+  color: #13262a;
   font-weight: 500;
 }
 
-@keyframes call-line-in {
-  to { opacity: 1; transform: translateY(0); }
+.nc-steps li.on i {
+  border-color: var(--call-accent);
+  background: var(--call-accent);
 }
 
-.call-outcome {
+.nc-steps li.on i::before { content: "✓"; }
+
+.nc-result {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  min-height: 82px;
-  padding: 18px 28px;
-  border-top: 1px solid #e4ebeb;
-  background: #fafcfc;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 4px;
+  padding: 12px 16px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 10px 24px -18px rgba(20, 40, 44, 0.45);
 }
 
-.outcome-check {
+.nc-check {
+  flex: none;
   display: grid;
-  width: 38px;
-  height: 38px;
+  width: 32px;
+  height: 32px;
   place-items: center;
   border-radius: 50%;
   color: var(--call-ink);
   background: var(--call-soft);
-  font-size: 18px;
   font-weight: 700;
+  transition: background 220ms ease, color 220ms ease;
 }
 
-.outcome-main strong {
-  color: #213639;
-  font: 600 14px/1.3 var(--font-head);
+.call-slide.done .nc-check {
+  color: #fff;
+  background: var(--call-accent);
 }
 
-.integration-tags {
+.nc-result strong {
+  display: block;
+  margin-top: 3px;
+  color: #13262a;
+  font: 600 16px/1.25 var(--font-head);
+}
+
+.nc-result small {
+  display: block;
+  margin-top: 5px;
+  color: #56676a;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+/* Conversación */
+.nc-convo-head {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 7px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #edf1f1;
+  color: #56676a;
+  font-size: 14px;
+  font-weight: 500;
 }
 
-.integration-tags span {
-  padding: 7px 10px;
-  border: 1px solid color-mix(in srgb, var(--call-accent) 24%, #dbe4e4);
-  border-radius: 8px;
+.nc-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 13px;
+  border-radius: 999px;
   color: var(--call-ink);
   background: var(--call-soft);
-  font-size: 11px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.nc-status::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--call-accent);
+}
+
+.call-slide.active:not(.done) .nc-status::before { animation: nc-blink 1.2s ease-in-out infinite; }
+
+@keyframes nc-blink {
+  50% { opacity: 0.25; }
+}
+
+/* Alto fijo: la columna la define el panel izquierdo; las burbujas viejas salen por arriba. */
+.nc-transcript {
+  flex: 1 1 0;
+  height: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+  overflow: hidden;
+  padding-top: 14px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 44px);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 44px);
+}
+
+.nc-msg {
+  flex: none;
+  max-width: min(80%, 580px);
+  margin: 0;
+  padding: 10px 16px 12px;
+  border-radius: 20px 20px 20px 6px;
+  color: #1b2a2d;
+  background: #f1f4f4;
+  font-size: 15.5px;
+  line-height: 1.45;
+  animation: call-line-in 320ms ease both;
+}
+
+.nc-msg.agente {
+  align-self: flex-end;
+  border: 1px solid color-mix(in srgb, var(--call-accent) 24%, transparent);
+  border-radius: 20px 20px 6px 20px;
+  background: var(--call-soft);
+}
+
+.nc-who {
+  display: block;
+  margin-bottom: 3px;
+  color: #7a888a;
+  font-size: 11.5px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.call-facts {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
+.nc-msg.agente .nc-who { color: var(--call-ink); }
+
+.nc-note {
+  flex: none;
+  align-self: center;
   margin: 0;
-  overflow: visible;
-  border: 0;
-  border-top: 1px solid #e4ebeb;
-  border-radius: 0;
-  background: #fff;
-  box-shadow: none;
+  padding: 5px 13px;
+  border-radius: 999px;
+  color: #56676a;
+  background: #f5f7f7;
+  font-size: 12.5px;
+  animation: call-line-in 320ms ease both;
 }
 
-.call-facts span {
-  min-height: 56px;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 12px 20px;
-  border-right: 1px solid #e4ebeb;
-  color: #647477;
-  background: #fff;
-  font-size: 12px;
-}
-
-.call-facts span:last-child { border-right: 0; }
-
-.call-facts b {
-  margin-right: 0;
-  color: var(--call-accent);
-  font-size: 11px;
+@keyframes call-line-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .carousel-hint {
@@ -554,22 +686,6 @@
   margin-left: 6px;
 }
 
-@media (min-width: 781px) {
-  .integration-tags span {
-    padding: 8px 12px;
-    font-size: 10.5px;
-  }
-
-  .call-facts span {
-    min-height: 62px;
-    font-size: 12px;
-  }
-
-  .call-facts b {
-    font-size: 11px;
-  }
-}
-
 /* Escritorio: la composición escala con la altura útil, sin recortar contenido. */
 @media (min-width: 900px) {
   .live-call {
@@ -579,10 +695,6 @@
 
   .call-heading {
     max-width: min(920px, calc(100vw - 48px));
-  }
-
-  .call-heading .eyebrow {
-    margin-bottom: clamp(5px, 0.8svh, 10px);
   }
 
   .call-heading h2 {
@@ -602,113 +714,31 @@
   }
 
   .call-switcher {
-    margin-bottom: clamp(4px, 0.7svh, 10px);
-    padding: clamp(3px, 0.55svh, 5px);
-  }
-
-  .call-switcher button {
-    min-height: clamp(32px, 4.2svh, 39px);
-    padding-inline: 18px;
-    font-size: clamp(12px, 0.72vw, 14px);
+    margin-bottom: clamp(6px, 1svh, 14px);
   }
 
   .call-track {
     padding-top: clamp(4px, 0.7svh, 8px);
-    padding-bottom: 0;
+    padding-bottom: 6px;
   }
 
-  .call-meta {
-    padding: clamp(8px, 1.2svh, 16px) clamp(24px, 2.2cqi, 36px);
+  .nc-top {
+    gap: clamp(12px, 1.8svh, 18px);
+    padding-top: clamp(16px, 2.4svh, 24px);
+    padding-bottom: clamp(10px, 1.6svh, 16px);
   }
 
-  .business-icon {
-    width: clamp(36px, 4.8svh, 43px);
-    height: clamp(36px, 4.8svh, 43px);
-    border-radius: clamp(11px, 1.5svh, 13px);
-    font-size: clamp(16px, 2.1svh, 19px);
+  .nc-bottom {
+    gap: clamp(7px, 1.1svh, 10px);
+    padding-bottom: clamp(16px, 2.6svh, 26px);
   }
 
-  .call-identity strong {
-    font-size: clamp(14px, min(1.25cqi, 1.8svh), 18px);
+  .nc-play-btn {
+    width: clamp(54px, 7.6svh, 66px);
+    height: clamp(54px, 7.6svh, 66px);
   }
 
-  .call-identity small {
-    font-size: clamp(12.5px, 0.95cqi, 15px);
-  }
-
-  .call-time span {
-    font-size: clamp(19px, min(1.7cqi, 2.5svh), 26px);
-  }
-
-  .call-time small {
-    font-size: clamp(10.5px, 0.72cqi, 12px);
-  }
-
-  .audio-strip {
-    min-height: clamp(44px, 6.7svh, 72px);
-    padding: clamp(4px, 0.7svh, 10px) clamp(24px, 2.2cqi, 36px);
-  }
-
-  .demo-waveform {
-    height: clamp(30px, 4.5svh, 46px);
-  }
-
-  .conversation-column {
-    min-height: clamp(158px, 23svh, 280px);
-    padding: clamp(10px, 1.5svh, 24px) clamp(24px, 2.2cqi, 36px);
-  }
-
-  .conversation-heading {
-    padding-bottom: clamp(8px, 1.3svh, 17px);
-    font-size: clamp(12.5px, 0.9cqi, 14px);
-  }
-
-  .demo-transcript {
-    min-height: clamp(122px, 20svh, 226px);
-    max-height: none;
-    gap: clamp(7px, 1.15svh, 13px);
-    padding-top: clamp(8px, 1.3svh, 18px);
-    overflow: visible;
-  }
-
-  .demo-line {
-    font-size: clamp(14px, 1.08cqi, 16px);
-    line-height: 1.45;
-  }
-
-  .demo-line .speaker {
-    font-size: clamp(10.5px, 0.72cqi, 12px);
-  }
-
-  .call-outcome {
-    min-height: clamp(48px, 6.5svh, 74px);
-    padding: clamp(8px, 1.2svh, 16px) clamp(24px, 2.2cqi, 36px);
-  }
-
-  .outcome-main strong {
-    font-size: clamp(14px, 1.1cqi, 17px);
-  }
-
-  .outcome-check {
-    width: clamp(32px, 4.2svh, 38px);
-    height: clamp(32px, 4.2svh, 38px);
-    font-size: clamp(15px, 2svh, 18px);
-  }
-
-  .integration-tags span {
-    padding: clamp(6px, 0.8svh, 8px) 10px;
-    font-size: clamp(10.5px, 0.78cqi, 12px);
-  }
-
-  .call-facts span {
-    min-height: clamp(42px, 5.5svh, 58px);
-    padding-block: clamp(6px, 0.9svh, 12px);
-    font-size: clamp(13px, 0.92cqi, 15px);
-  }
-
-  .call-facts b {
-    font-size: clamp(11px, 0.78cqi, 13px);
-  }
+  .nc-steps { gap: clamp(5px, 0.9svh, 8px); }
 
   .carousel-hint {
     display: none;
@@ -720,15 +750,10 @@
   }
 }
 
-/* Laptops con poca altura: se comprime el ritmo, no el contenido ni la tipografía útil. */
+/* Laptops con poca altura: se comprime el ritmo, no la tipografía útil. */
 @media (min-width: 900px) and (max-height: 760px) {
   .live-call {
-    min-height: calc(100svh - 84px);
     padding-block: 4px;
-  }
-
-  .call-heading .eyebrow {
-    margin-bottom: 3px;
   }
 
   .call-heading h2 {
@@ -741,71 +766,29 @@
     line-height: 1.35;
   }
 
-  .call-showcase {
-    margin-top: 5px;
-  }
+  .call-showcase { margin-top: 6px; }
+  .call-switcher { margin-bottom: 4px; }
+  .call-track { padding-top: 2px; }
+  .nc-id strong { font-size: 16.5px; }
+  .nc-icon { width: 40px; height: 40px; border-radius: 13px; }
+  .nc-play { padding-block: 9px; }
+  .nc-play-text b { font-size: 17.5px; }
+  .nc-wave { height: 26px; }
+  .nc-steps li { font-size: 14px; }
+  .nc-result { margin-top: 2px; padding: 10px 14px; }
+  .nc-convo { padding-block: 16px 18px; }
+  .nc-convo-head { padding-bottom: 10px; }
+  .nc-msg { padding: 8px 14px 9px; font-size: 14.5px; }
+}
 
-  .call-switcher {
-    min-height: 36px;
-    margin-bottom: 3px;
-    padding: 3px;
-  }
-
-  .call-switcher button {
-    min-height: 30px;
-  }
-
-  .call-track {
-    padding-top: 2px;
-  }
-
-  .call-meta {
-    padding-block: 6px;
-  }
-
-  .audio-strip {
-    min-height: 42px;
-    padding-block: 3px;
-  }
-
-  .demo-waveform {
-    height: 28px;
-  }
-
-  .conversation-column {
-    min-height: 150px;
-    padding-block: 8px;
-  }
-
-  .conversation-heading {
-    padding-bottom: 7px;
-  }
-
-  .demo-transcript {
-    min-height: 112px;
-    gap: 6px;
-    padding-top: 7px;
-  }
-
-  .call-outcome {
-    min-height: 44px;
-    padding-block: 6px;
-  }
-
-  .outcome-check {
-    width: 30px;
-    height: 30px;
-  }
-
-  .call-facts span {
-    min-height: 38px;
-    padding-block: 5px;
-  }
+/* Pantallas anchas: la tarjeta no se estira de más. */
+@media (min-width: 1700px) {
+  .nc-msg { font-size: 16.5px; }
 }
 
 @media (max-width: 780px) {
   .live-call { padding: 82px 0 42px; }
-  .call-showcase { margin-top: 40px; }
+  .call-showcase { margin-top: 32px; }
 
   .call-switcher {
     width: calc(100vw - 32px);
@@ -820,52 +803,77 @@
   }
 
   .call-track {
-    grid-auto-columns: calc(100vw - 46px);
-    gap: 14px;
-    padding: 6px 23px 28px;
+    grid-auto-columns: calc(100vw - 36px);
+    gap: 12px;
+    padding: 6px 18px 24px;
   }
 
-  .call-card { border-radius: 19px; }
-  .call-meta { padding: 18px; }
+  /* En móvil las flechas taparían texto; se navega deslizando o con las pestañas. */
+  .carousel-arrow { display: none; }
 
-  .business-icon {
-    width: 38px;
-    height: 38px;
-    border-radius: 11px;
-    font-size: 16px;
-  }
-
-  .call-identity strong { font-size: 13px; }
-  .call-identity small { font-size: 12px; }
-  .call-time span { font-size: 18px; }
-
-  .call-meta-actions {
-    align-items: flex-end;
-    flex-direction: column-reverse;
-    gap: 7px;
-  }
-
-  .call-audio-control {
-    min-height: 32px;
-    padding-inline: 10px;
-    font-size: 10px;
-  }
-
-  .carousel-arrow {
-    top: 47%;
-    width: 42px;
-    height: 42px;
-  }
-
-  .carousel-arrow-prev { left: 5px; }
-  .carousel-arrow-next { right: 5px; }
-
-  .audio-strip {
+  .call-card {
     grid-template-columns: minmax(0, 1fr);
-    gap: 4px;
-    min-height: 88px;
-    padding: 9px 18px 8px;
+    grid-template-rows: none;
+    border-radius: 22px;
   }
+
+  .nc-top,
+  .nc-convo,
+  .nc-bottom {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .nc-top {
+    gap: 14px;
+    padding: 18px 16px 14px;
+  }
+
+  .nc-convo {
+    padding: 14px 16px 12px;
+  }
+
+  .nc-transcript {
+    flex: none;
+    height: 290px;
+  }
+
+  .nc-bottom {
+    gap: 8px;
+    padding: 16px 16px 18px;
+  }
+
+  .nc-id strong { font-size: 16px; }
+  .nc-id small { font-size: 13px; }
+
+  .nc-play {
+    gap: 14px;
+    padding: 10px 16px 10px 10px;
+  }
+
+  .nc-play-btn {
+    width: 58px;
+    height: 58px;
+  }
+
+  .nc-play-btn svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .nc-play-text b { font-size: 17.5px; }
+  .nc-play-text small { font-size: 13px; }
+  .nc-wave { height: 28px; }
+
+  .nc-msg {
+    max-width: 88%;
+    padding: 9px 13px 10px;
+    font-size: 14.5px;
+  }
+
+  .nc-steps li { font-size: 14.5px; }
+
+  .carousel-hint { margin-top: 2px; font-size: 13px; }
 
   .call-industry-strip {
     width: calc(100% - 32px);
@@ -884,61 +892,25 @@
     justify-content: center;
     flex: 1 1 calc(50% - 8px);
   }
-
-  .demo-waveform {
-    height: 42px;
-    gap: 3px;
-  }
-
-  .conversation-column {
-    min-height: 300px;
-    padding: 20px 18px;
-  }
-
-  .demo-transcript { min-height: 227px; }
-
-  .demo-line {
-    grid-template-columns: 54px minmax(0, 1fr);
-    gap: 7px;
-    font-size: 12px;
-  }
-
-  .call-outcome {
-    align-items: flex-start;
-    flex-direction: column;
-    padding: 17px 18px;
-  }
-
-  .integration-tags { justify-content: flex-start; }
-  .call-facts { grid-template-columns: 1fr; }
-
-  .call-facts span {
-    min-height: 42px;
-    border-right: 0;
-    border-bottom: 1px solid #e4ebeb;
-  }
-
-  .call-facts span:last-child { border-bottom: 0; }
 }
 
-@media (max-width: 430px) {
-  .call-switcher { margin-bottom: 19px; }
-  .call-time small { display: none; }
-  .call-audio-control b { display: none; }
-  .call-audio-control { width: 34px; justify-content: center; padding: 0; }
-}
-
-/* En pantallas muy angostas el botón redondo invade el texto de la transcripción (p.ej. "NATALIA" queda tapado); a este ancho el arrastre y las pestañas ya cubren la navegación. */
 @media (max-width: 380px) {
-  .carousel-arrow { display: none; }
+  .nc-play-text small { display: none; }
+  .nc-transcript { height: 270px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .call-carousel { scroll-behavior: auto; }
 
-  .call-slide.active.speaking .demo-waveform span {
+  .call-slide.active.speaking .nc-wave span {
     animation: none;
     transform: scaleY(0.65);
     opacity: 0.7;
+  }
+
+  .call-slide.active .nc-play[data-mode="play"] .nc-play-btn::before,
+  .call-slide.active .nc-play[data-mode="play"] .nc-play-btn::after,
+  .call-slide.active:not(.done) .nc-status::before {
+    animation: none;
   }
 }

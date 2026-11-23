@@ -241,8 +241,20 @@
     });
   }
 
+  var ICONS = {
+    play: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19 12z" fill="currentColor"/></svg>',
+    mute: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6.5 8.6H3v6.8h3.5L11 19z" fill="currentColor"/><path d="m16 9.5 5 5M21 9.5l-5 5"/></svg>',
+    replay: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1L3.5 8.5"/><path d="M3.5 3.5v5h5"/></svg>'
+  };
+  var PLAY_COPY = {
+    play: ["Escuchar la llamada", "Toca para oír a Natalia"],
+    mute: ["Silenciar", "Natalia está hablando"],
+    replay: ["Escuchar otra vez", "Desde el inicio, con voz"]
+  };
+  var started = !("IntersectionObserver" in window);
+
   function createWaveform(container, seed) {
-    for (var i = 0; i < 54; i += 1) {
+    for (var i = 0; i < 40; i += 1) {
       var bar = document.createElement("span");
       var strength = 0.22 + Math.abs(Math.sin((i + seed * 3) * 0.61)) * 0.78;
       bar.style.height = Math.round(strength * 100) + "%";
@@ -252,14 +264,22 @@
     }
   }
 
+  // Tres estados del botón grande: escuchar (voz apagada), silenciar (voz sonando) y repetir (llamada terminada con voz).
   function updateAudioControls() {
-    document.querySelectorAll(".call-audio-control").forEach(function (control) {
-      control.disabled = false;
-      control.classList.toggle("playing", voiceEnabled);
-      control.setAttribute("aria-pressed", voiceEnabled ? "true" : "false");
-      control.querySelector("span").textContent = voiceEnabled ? "◼" : "▶";
-      control.querySelector("b").textContent = voiceEnabled ? "Desactivar audio" : "Activar audio";
+    slides().forEach(function (slide) {
+      var control = slide.querySelector(".nc-play");
+      if (!control) return;
+      // Solo la tarjeta central cambia de estado; las laterales siempre invitan a escuchar.
+      var done = slide.classList.contains("done");
+      var mode = !voiceEnabled || slide !== activeSlide ? "play" : done ? "replay" : "mute";
+      if (control.dataset.mode === mode) return;
+      control.dataset.mode = mode;
+      control.setAttribute("aria-pressed", mode === "mute" ? "true" : "false");
+      control.querySelector(".nc-play-btn").innerHTML = ICONS[mode];
+      control.querySelector("b").textContent = PLAY_COPY[mode][0];
+      control.querySelector("small").textContent = PLAY_COPY[mode][1];
     });
+    if (liveCallSection) liveCallSection.classList.toggle("voice-on", voiceEnabled);
   }
 
   function stopCurrentAudio() {
@@ -310,19 +330,35 @@
   }
 
   function prepareAudioControl(slide, call) {
-    var control = slide.querySelector(".call-audio-control");
+    var control = slide.querySelector(".nc-play");
     if (!control) return;
-    control.disabled = false;
     control.addEventListener("pointerdown", function (event) {
       event.stopPropagation();
     });
     control.addEventListener("click", function (event) {
       event.stopPropagation();
-      voiceEnabled = !voiceEnabled;
-      updateAudioControls();
-      if (slide === activeSlide) {
-        playTranscript(slide, call);
+      started = true;
+      // Botón de una tarjeta lateral: se trae al centro y se escucha con voz.
+      if (slide !== activeSlide) {
+        voiceEnabled = true;
+        updateAudioControls();
+        var physicalIndex = slides().indexOf(slide);
+        scrollTo(physicalIndex);
+        window.setTimeout(function () {
+          activate(normalizeEdge(physicalIndex), true);
+        }, reducedMotion ? 0 : 300);
+        return;
       }
+      // Silenciar: corta la voz y la conversación sigue por escrito.
+      if (voiceEnabled && !slide.classList.contains("done")) {
+        voiceEnabled = false;
+        stopCurrentAudio();
+        updateAudioControls();
+        return;
+      }
+      // Escuchar o repetir: arranca la llamada desde el inicio con voz.
+      voiceEnabled = true;
+      playTranscript(slide, call);
     });
   }
 
@@ -343,35 +379,39 @@
       slide.setAttribute("aria-labelledby", "call-tab-" + realIndex);
     }
 
+    // Izquierda: quién llama, el botón para escuchar, qué hace Natalia y el resultado.
+    // Derecha: la conversación en burbujas (cliente a la izquierda, Natalia a la derecha).
     slide.innerHTML =
       '<div class="call-card">' +
-        '<div class="call-meta">' +
-          '<div class="call-identity">' +
-            '<span class="business-icon" aria-hidden="true">' + call.icon + '</span>' +
+        '<div class="nc-top">' +
+          '<div class="nc-id">' +
+            '<span class="nc-icon" aria-hidden="true">' + call.icon + '</span>' +
             '<div><strong>' + call.title + '</strong><small>' + call.subtitle + '</small></div>' +
           '</div>' +
-          '<div class="call-meta-actions">' +
-            '<button class="call-audio-control" type="button" aria-pressed="false" aria-label="Activar o desactivar la voz de Natalia"><span aria-hidden="true">▶</span><b>Activar audio</b></button>' +
-            '<div class="call-time"><span>00:00</span><small>duración</small></div>' +
+          '<button class="nc-play" type="button" aria-pressed="false">' +
+            '<span class="nc-play-btn"></span>' +
+            '<span class="nc-play-text"><b></b><small></small></span>' +
+          '</button>' +
+          '<div class="nc-wave-row" aria-hidden="true"><div class="nc-wave"></div><span class="nc-time">0:00</span></div>' +
+        '</div>' +
+        '<div class="nc-convo">' +
+          '<div class="nc-convo-head"><span>Conversación</span><span class="nc-status">En espera</span></div>' +
+          '<div class="nc-transcript" aria-live="off"></div>' +
+        '</div>' +
+        '<div class="nc-bottom">' +
+          '<span class="nc-label">Lo que hace Natalia</span>' +
+          '<ol class="nc-steps">' +
+            call.facts.map(function (fact) { return '<li><i aria-hidden="true"></i>' + fact + "</li>"; }).join("") +
+          '</ol>' +
+          '<div class="nc-result">' +
+            '<span class="nc-check" aria-hidden="true">✓</span>' +
+            '<div><span class="nc-label">Resultado</span><strong>' + call.initialResult + '</strong>' +
+            '<small>Se registra en ' + call.tags.join(" · ") + '</small></div>' +
           '</div>' +
-        '</div>' +
-        '<div class="audio-strip" aria-hidden="true"><div class="demo-waveform"></div></div>' +
-        '<div class="conversation-column">' +
-          '<div class="conversation-heading"><span>Conversación</span><span class="listening-label">Vista previa</span></div>' +
-          '<div class="demo-transcript" aria-live="off"></div>' +
-        '</div>' +
-        '<div class="call-outcome">' +
-          '<div class="outcome-main"><span class="outcome-check" aria-hidden="true">✓</span><div><span class="meta-label">RESULTADO</span><strong>' + call.initialResult + '</strong></div></div>' +
-          '<div class="integration-tags" aria-label="Destinos de la acción">' +
-            call.tags.map(function (tag) { return "<span>" + tag + "</span>"; }).join("") +
-          '</div>' +
-        '</div>' +
-        '<div class="call-facts" aria-label="Qué sucede durante la llamada">' +
-          call.facts.map(function (fact, index) { return "<span><b>0" + (index + 1) + "</b>" + fact + "</span>"; }).join("") +
         '</div>' +
       '</div>';
 
-    createWaveform(slide.querySelector(".demo-waveform"), realIndex);
+    createWaveform(slide.querySelector(".nc-wave"), realIndex);
     prepareAudioControl(slide, call);
     return slide;
   }
@@ -405,10 +445,10 @@
 
   function renderLine(entry) {
     var line = document.createElement("p");
-    line.className = "demo-line " + entry.who;
+    line.className = "nc-msg " + entry.who;
 
     var speaker = document.createElement("span");
-    speaker.className = "speaker";
+    speaker.className = "nc-who";
     speaker.textContent = entry.who === "cliente" ? "Cliente" : "Natalia";
 
     var body = document.createElement("span");
@@ -416,6 +456,13 @@
     line.appendChild(speaker);
     line.appendChild(body);
     return line;
+  }
+
+  function renderNote(text) {
+    var note = document.createElement("p");
+    note.className = "nc-note";
+    note.textContent = text;
+    return note;
   }
 
   function clearPlayback() {
@@ -443,17 +490,19 @@
     });
   }
 
-  function visibleTranscriptLines() {
-    if (window.innerWidth < 720) return 4;
-    if (window.innerWidth < 900) return 5;
-    if (window.innerHeight <= 760) return 4;
-    if (window.innerHeight < 840) return 5;
-    return 6;
-  }
-
+  // Las burbujas se apilan desde abajo; se quitan las que ya quedaron completamente fuera por arriba.
   function trimTranscript(transcript) {
-    if (!transcript) return;
-    while (transcript.children.length > visibleTranscriptLines()) {
+    if (!transcript || !transcript.clientHeight) return;
+    var gap = parseFloat(window.getComputedStyle(transcript).rowGap) || 0;
+    var available = transcript.clientHeight;
+    var used = 0;
+    var keep = 0;
+    for (var i = transcript.children.length - 1; i >= 0; i -= 1) {
+      if (used >= available) break;
+      used += transcript.children[i].offsetHeight + gap;
+      keep += 1;
+    }
+    while (transcript.children.length > keep) {
       transcript.removeChild(transcript.firstChild);
     }
   }
@@ -461,20 +510,43 @@
   function playTranscript(slide, call) {
     clearPlayback();
     var generation = playbackGeneration;
-    var transcript = slide.querySelector(".demo-transcript");
-    var status = slide.querySelector(".listening-label");
-    var clock = slide.querySelector(".call-time span");
-    var result = slide.querySelector(".outcome-main strong");
+    var transcript = slide.querySelector(".nc-transcript");
+    var status = slide.querySelector(".nc-status");
+    var clock = slide.querySelector(".nc-time");
+    var result = slide.querySelector(".nc-result strong");
+    var steps = slide.querySelectorAll(".nc-steps li");
     var index = 0;
     var seconds = 0;
 
     transcript.innerHTML = "";
-    clock.textContent = "00:00";
+    clock.textContent = "0:00";
     result.textContent = call.initialResult;
-    status.textContent = "Escuchando";
+    slide.classList.remove("done", "speaking");
+    markSteps(0);
+    updateAudioControls();
+    // Hasta que la sección se ve, la tarjeta espera: así nadie llega a una llamada ya terminada.
+    if (!started) {
+      status.textContent = "En espera";
+      return;
+    }
+    status.textContent = "Llamada entrante";
 
     function isCurrent() {
       return generation === playbackGeneration && slide === activeSlide;
+    }
+
+    // Cada paso de "Lo que hace Natalia" se marca al avanzar un tercio de la llamada.
+    function markSteps(linesShown) {
+      var total = call.script.length;
+      var firstPending = -1;
+      steps.forEach(function (item, stepIndex) {
+        var on = linesShown >= Math.round(total * (stepIndex + 1) / steps.length);
+        item.classList.toggle("on", on);
+        if (!on && firstPending < 0) firstPending = stepIndex;
+      });
+      steps.forEach(function (item, stepIndex) {
+        item.classList.toggle("now", linesShown > 0 && stepIndex === firstPending);
+      });
     }
 
     function wait(milliseconds) {
@@ -494,7 +566,8 @@
       slide.classList.toggle("speaking", entry.who === "agente");
       transcript.appendChild(renderLine(entry));
       trimTranscript(transcript);
-      status.textContent = index >= call.script.length - 2 ? "Registrando" : entry.who === "agente" ? "Respondiendo" : "Escuchando";
+      markSteps(index + 1);
+      status.textContent = index >= call.script.length - 2 ? "Registrando" : entry.who === "agente" ? "Natalia responde" : "Cliente habla";
 
       if (entry.who === "agente" && voiceEnabled && entry.audio) {
         return playAudioFile(entry.audio, "voice").then(function (played) {
@@ -507,20 +580,26 @@
     function finish() {
       if (!isCurrent()) return;
       slide.classList.remove("speaking");
-      status.textContent = "Completado";
+      slide.classList.add("done");
+      status.textContent = "Completada";
       result.textContent = call.result;
+      markSteps(call.script.length);
       if (clockTimer) window.clearInterval(clockTimer);
       clockTimer = null;
+      updateAudioControls();
     }
 
     function step() {
       if (!isCurrent()) return;
       var entry = call.script[index];
       var before = Promise.resolve();
-      if (entry.who === "agente" && entry.keyboardBefore && voiceEnabled) {
-        status.textContent = "Consultando";
-        audioState.textContent = "Natalia consulta el sistema";
-        before = playAudioFile("audio/demos/keyboard.mp3", "keyboard");
+      if (entry.who === "agente" && entry.keyboardBefore) {
+        status.textContent = "Consultando el sistema";
+        transcript.appendChild(renderNote("Natalia consulta el sistema…"));
+        trimTranscript(transcript);
+        before = voiceEnabled
+          ? playAudioFile("audio/demos/keyboard.mp3", "keyboard")
+          : wait(reducedMotion ? 200 : 900);
       }
 
       before
@@ -542,8 +621,8 @@
 
     step();
     clockTimer = window.setInterval(function () {
-      seconds = (seconds + 1) % 60;
-      clock.textContent = "00:" + String(seconds).padStart(2, "0");
+      seconds += 1;
+      clock.textContent = Math.floor(seconds / 60) + ":" + String(seconds % 60).padStart(2, "0");
     }, 1000);
   }
 
@@ -555,9 +634,14 @@
     activeRealIndex = Number(slide.dataset.realIndex);
     allSlides.forEach(function (item) {
       item.classList.toggle("active", item === slide);
+      if (item !== slide && item === activeSlide) {
+        item.classList.remove("speaking");
+        var oldStatus = item.querySelector(".nc-status");
+        if (oldStatus && !item.classList.contains("done")) oldStatus.textContent = "En pausa";
+      }
       if (!item.dataset.clone) {
         item.setAttribute("aria-hidden", item === slide ? "false" : "true");
-        var liveRegion = item.querySelector(".demo-transcript");
+        var liveRegion = item.querySelector(".nc-transcript");
         if (liveRegion) liveRegion.setAttribute("aria-live", item === slide ? "polite" : "off");
       }
     });
@@ -647,6 +731,19 @@
 
   build();
   updateAudioControls();
+
+  if (!started && liveCallSection) {
+    var startObserver = new IntersectionObserver(function (entries) {
+      if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
+      startObserver.disconnect();
+      if (started) return;
+      started = true;
+      if (activeSlide) playTranscript(activeSlide, CALLS[activeRealIndex]);
+    }, { threshold: 0.3 });
+    startObserver.observe(liveCallSection);
+  } else {
+    started = true;
+  }
 
   if ("IntersectionObserver" in window && liveCallSection) {
     new IntersectionObserver(function (entries) {
@@ -752,7 +849,7 @@
     if (!activeSlide) return;
     window.clearTimeout(scrollTimer);
     scrollTimer = window.setTimeout(function () {
-      document.querySelectorAll(".demo-transcript").forEach(trimTranscript);
+      document.querySelectorAll(".nc-transcript").forEach(trimTranscript);
       jumpTo(slides().indexOf(activeSlide));
       updateSectionTheme();
     }, 120);

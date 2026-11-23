@@ -33,7 +33,7 @@ body { background: var(--nx-bg); color: var(--nx-ink); font-size: 16px; }
 .nx-backdrop i:nth-child(3) { width: 40vw; height: 40vw; left: 24vw; bottom: -26vw; background: rgba(var(--theme-ink-rgb), 0.16); }
 .nx-grain { position: fixed; inset: 0; z-index: 0; pointer-events: none; background: var(--nx-noise); opacity: 0.24; mix-blend-mode: soft-light; }
 main, .footer, .nav { position: relative; z-index: 2; }
-.nav { position: fixed; }
+.nav { position: fixed; z-index: 40; }
 
 /* Las secciones dejan de pintar su propio fondo: lo da el lienzo común. */
 .section-light, .live-call, .capabilities, .faq, .how, .proof-quote, .cta-band, .footer { background: none; border: 0; }
@@ -285,9 +285,9 @@ em, .call-heading h2 em, .cta-band h2 em {
 /* ── Ajustes finos ──────────────────────────────────────────────────────── */
 .nav-inner { background: rgba(255, 255, 255, 0.88); }
 .nx-niches button { color: var(--nx-ink); }
-/* Las flechas montan el borde de la tarjeta en vez de tapar la conversación. */
-.carousel-arrow-prev { left: max(10px, calc((100vw - var(--slide-width)) / 2 - 27px)); }
-.carousel-arrow-next { right: max(10px, calc((100vw - var(--slide-width)) / 2 - 27px)); }
+/* Las flechas quedan fuera de la tarjeta para no tapar el reproductor ni la conversación. */
+.carousel-arrow-prev { left: max(calc((100% - 100vw) / 2 + 10px), calc((100% - var(--slide-width)) / 2 - 68px)); }
+.carousel-arrow-next { right: max(calc((100% - 100vw) / 2 + 10px), calc((100% - var(--slide-width)) / 2 - 68px)); }
 @media (max-width: 720px) {
   .nx-niches { grid-template-columns: 1.3fr 0.9fr 1.2fr 0.8fr; gap: 2px; }
   .nx-niches button { font-size: 12px; padding: 0 4px; }
